@@ -1,0 +1,15 @@
+*.exe
+*.dll
+*.pdb
+*.bak
+*.failed-*
+*.previous-*
+bin/
+obj/
+dist/
+work/
+*.private.xml
+release-private.xml
+*.pfx
+*.user
+.vs/

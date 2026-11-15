@@ -1,0 +1,1 @@
+namespace WinterDesk {internal static class WorkerActivity {internal static bool RetireAfterCapture(int missing,bool held){return (missing&2)!=0&&!held;}internal static bool CanClean(int missing,bool held){return (missing&2)==0&&!held;}}}

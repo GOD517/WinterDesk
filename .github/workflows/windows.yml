@@ -1,0 +1,22 @@
+name: Windows build and checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Windows executable
+        shell: powershell
+        run: ./build.ps1
+      - name: Check scene and update integrity
+        shell: powershell
+        run: ./tests/Run-Checks.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WinterDesk-Windows
+          path: dist/WinterDesk.exe

@@ -1,6 +1,14 @@
 param([string]$OutputDirectory = (Join-Path $PSScriptRoot 'dist'))
 $ErrorActionPreference = 'Stop'
 $source = Join-Path $PSScriptRoot 'src'
+$pack = Join-Path $source 'assets/drawn-animation.zip'
+$packHash = 'bd1795170aa1a160ecdc870376f80c8c98f0deee519b93340d98e626b2c30509'
+if (!(Test-Path -LiteralPath $pack)) {
+ [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+ New-Item -ItemType Directory -Force -Path (Split-Path $pack -Parent) | Out-Null
+ Invoke-WebRequest -UseBasicParsing -Uri 'https://github.com/GOD517/WinterDesk/releases/download/v2.4.0/drawn-animation.zip' -OutFile $pack
+}
+if ((Get-FileHash -LiteralPath $pack -Algorithm SHA256).Hash.ToLowerInvariant() -ne $packHash) { throw 'Animation resource checksum mismatch' }
 $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
 if (!(Test-Path -LiteralPath $compiler)) { $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework/v4.0.30319/csc.exe' }
 if (!(Test-Path -LiteralPath $compiler)) { throw 'The .NET Framework C# compiler was not found.' }

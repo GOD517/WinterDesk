@@ -13,3 +13,4 @@ release-private.xml
 *.pfx
 *.user
 .vs/
+src/assets/drawn-animation.zip
